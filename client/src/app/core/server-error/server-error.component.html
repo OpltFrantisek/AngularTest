@@ -1,0 +1,21 @@
+<div class="container mt-5">
+  <h4>
+    Internal server error - refreshing the page will make the exception disapper
+  </h4>
+  <ng-container *ngIf="error">
+    <h5 class="text-danger">Erros: {{ error.message }}</h5>
+    <p class="font-weight-bold">
+      Note: if you are seeing this then Angular is probably not resposible
+    </p>
+    <p>What to do ?</p>
+    <ol>
+      <li>Open dev tools</li>
+      <li>Inspect the network tab</li>
+      <li>Examine this request URL - make sure this is correct</li>
+      <li>Kill your self</li>
+    </ol>
+    <code class="mt-5" style="background-color: whitesmoke;">{{
+      error.details
+    }}</code>
+  </ng-container>
+</div>
