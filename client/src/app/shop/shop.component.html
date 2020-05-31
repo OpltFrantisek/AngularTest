@@ -38,24 +38,20 @@
 
     <section class="col-9">
       <div class="d-flex justify-content-between align-items-center pb-2">
-        <header>
-          <span
-            >Showing 
-            <strong>
-                {{(this.shopParams.pageNumber-1) * this.shopParams.pageSize+1}} -  {{(this.shopParams.pageNumber) * this.shopParams.pageSize}}
-
-            </strong> of <strong>{{totalCount}}</strong> results</span
-          >
-        </header>
+       <app-pagin-header
+        [totalCount] = "totalCount"
+        [pageSize] = "this.shopParams.pageSize"
+        [pageNumber] = "this.shopParams.pageNumber"
+       ></app-pagin-header>
         <div class="form-inline mt-2">
-          <input
+          <input (keyup)= "onSearch()" #search
             class="form-control mr-2"
             style="width: 300px;"
             placeholder="Search"
             type="text"
           />
-          <button class="btn btn-outline-primary my-2">Search</button>
-          <button class="btn btn-outline-success ml-2 my-2">Reset</button>
+          <button class="btn btn-outline-primary my-2" (click)="onSearch()">Search</button>
+          <button class="btn btn-outline-success ml-2 my-2" (click)="onReset()">Reset</button>
         </div>
       </div>
 
@@ -64,18 +60,12 @@
           <app-product-item [product]="item"></app-product-item>
         </div>
       </div>
-      <div class="d-flex justify-content-center">
-        <pagination
-          [boundaryLinks]="true"
-          [totalItems]="this.totalCount"
-          (pageChanged) = "onPageChange($event)"
-          [itemsPerPage] = "shopParams.pageSize"
-          previousText="&lsaquo;"
-          nextText="&rsaquo;"
-          firstText="&laquo;"
-          lastText="&raquo;"
-        >
-        </pagination>
+      <div class="d-flex justify-content-center" *ngIf="totalCount && totalCount > 0">
+        <app-pager
+            [pageSize] = "this.shopParams.pageSize"
+            [totalCount] = "totalCount"
+            (pageChanged) = "onPageChange($event)"
+        ></app-pager>
       </div>
     </section>
   </div>
